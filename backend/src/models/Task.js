@@ -10,6 +10,10 @@ const taskSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        difficulty: {
+            type: String,
+            required: true
+        },
         rewardXp: {
             type: Number,
             required: true

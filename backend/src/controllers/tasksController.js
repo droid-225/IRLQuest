@@ -29,8 +29,8 @@ export async function createTask(req, res) {
     // res.status(201).json({message:"task created successfully!"});
 
     try {
-        const {title, content, rewardXp, complete} = req.body;
-        const newTask = new Task({title, content, rewardXp, complete});
+        const {title, content, difficulty, rewardXp, complete} = req.body;
+        const newTask = new Task({title, content, difficulty, rewardXp, complete});
 
         const savedTask = await newTask.save();
         res.status(201).json(savedTask);
@@ -42,8 +42,8 @@ export async function createTask(req, res) {
 
 export async function updateTask(req, res) {
     try {
-        const {title, content, rewardXp, complete} = req.body;
-        const updatedTask = await Task.findByIdAndUpdate(req.params.id, {title: title, content: content, rewardXp: rewardXp, complete: complete}, {new: true,});
+        const {title, content, difficulty, rewardXp, complete} = req.body;
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id, {title: title, content: content, difficulty: difficulty, rewardXp: rewardXp, complete: complete}, {new: true,});
 
         if(!updatedTask) return res.status(404).json({message: "Task not found"});
 
