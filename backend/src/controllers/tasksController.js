@@ -43,7 +43,16 @@ export async function createTask(req, res) {
 export async function updateTask(req, res) {
     try {
         const {title, content, difficulty, rewardXp, complete} = req.body;
-        const updatedTask = await Task.findByIdAndUpdate(req.params.id, {title: title, content: content, difficulty: difficulty, rewardXp: rewardXp, complete: complete}, {new: true,});
+        
+        // Create update object with only provided fields
+        const updateData = {};
+        if (title !== undefined) updateData.title = title;
+        if (content !== undefined) updateData.content = content;
+        if (difficulty !== undefined) updateData.difficulty = difficulty;
+        if (rewardXp !== undefined) updateData.rewardXp = rewardXp;
+        if (complete !== undefined) updateData.complete = complete;
+        
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id, updateData, {new: true});
 
         if(!updatedTask) return res.status(404).json({message: "Task not found"});
 
